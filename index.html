@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+    <h1>Hello World</h1>
+
+    <script>
+
+        function loadjs(file) {
+            var getHead = document.getElementsByTagName("head")[0];
+            var crt = document.createElement("script");
+            crt.setAttribute("src", file);
+            setTimeout(function () { getHead.appendChild(crt); }, 3000);
+        }
+
+
+        function loadcss(file) {
+            var getHead = document.getElementsByTagName("head")[0];
+            var crt = document.createElement("link");
+            crt.setAttribute("rel", "stylesheet");
+            crt.setAttribute("type", "text/css");
+            crt.setAttribute("href", file);
+            getHead.appendChild(crt);
+
+            //setTimeout(function(){  }, 0);
+
+        }
+
+        //var body = document.getElementsByTagName("bod");
+        //window.onmousemove= loadcss("style.css");
+        //document.onmousemove =  loadjs("test.js");
+        //window.addEventListener("mousemove", loadcss("style.css"));
+
+        window.addEventListener("mousemove", function () {
+            var _link = document.getElementsByTagName("link");
+            if (_link.length > 0) {
+                var _css = _link[0].getAttribute("href");
+                if (_css.trim() != "style.css") {
+                    loadcss("style.css");
+                }
+            }
+            else {
+                loadcss("style.css");
+            }
+        });
+
+    </script>
+</body>
+</html>
