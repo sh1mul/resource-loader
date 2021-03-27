@@ -44,8 +44,18 @@
             else {
                 loadcss("style.css");
             }
+            var scrpt = document.getElementsByTagName("script");
+            if (scrpt.length > 0) {
+                var js = _link[0].getAttribute("src");
+                if (js.trim() != "test.js") {
+                    loadjs("test.js");
+                }
+            }
+            else {
+                loadjs"test.js");
+            }
         });
-
+        
     </script>
 </body>
 </html>
