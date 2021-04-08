@@ -1,63 +1,72 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    
-    <title></title>
-    <link rel="stylesheet" type="text/css" href="Over.css" />
+    <meta name="viewport" initial-scale>
+    <meta name="description" content="Resource (Js, css, fonts) loader script with javascript">
+    <link rel="stylesheet" href="css/style.css"/>
+    <title>Resource loader based on user intereaction</title>
 </head>
 <body>
-    <h1>Hello World</h1>
+    <h1 class="one tone pone">Hello World</h1>
+    <h2 class="one">Hello World</h2>
+    <h3 class="ones">Hello World</h3>
+    <h4 class="fours">Hello World</h4>
 
     <script>
         var scrpts = ["test.js", "fest.js", "jest.js"];
         var styles = ["test.css", "fest.css", "style.css"];
-        function loadjs(file) {
-            var getHead = document.getElementsByTagName("head")[0];
+        var allevent = ["mousemove", "mouseover", "touch","click"];
+        var getHead = document.getElementsByTagName("head")[0];
+        function createJs(file) {
+            
             for(var i=0; i<file.length; i++){
+                var jsDir = "js/";
                 var crt = document.createElement("script");
-                crt.setAttribute("src", file[i]);
+                crt.setAttribute("src", jsDir + file[i]);
                 getHead.appendChild(crt);
             }
             
         }
 
 
-        function loadcss(file) {
-            var getHead = document.getElementsByTagName("head")[0];
+        function creatCss(file) {
+            
             for(var i=0; i<file.length; i++){
                 var crt = document.createElement("link");
+                var cssDir = "css/";
                 crt.setAttribute("rel", "stylesheet");
                 crt.setAttribute("type", "text/css");
-                crt.setAttribute("href", file[i]);
+                crt.setAttribute("href", cssDir + file[i]);
                 getHead.appendChild(crt);
             }
-            
-
-            //setTimeout(function(){  }, 0);
 
         }
 
-        window.addEventListener("mousemove", function () {
-            var _link = document.getElementsByTagName("link");
+        function loadResources(){
 
-            if (_link.length < styles.length) {
-                loadcss(styles);
-            }
-            var _js = document.getElementsByTagName("script");
+        creatCss(styles);
+            
             //console.log(_js.length);
             
-            if (_js.length<scrpts.length) {
-            	loadjs(scrpts);
-            }
-
-
-
-            
-            
-            
-            
-        });
+        createJs(scrpts);
+            //Remove all events after any event triggered
+            // Will prevent loading multiple
+            window.removeEventListener("mousemove", loadResources);
+            window.removeEventListener("mouseover", loadResources);
+            window.removeEventListener("touch", loadResources);
+            window.removeEventListener("scroll", loadResources);
+            window.removeEventListener("click", loadResources);
+        }   
+        
+        //Wait untill user interaction detected.
+        window.addEventListener("mousemove", loadResources);
+        window.addEventListener("mouseover", loadResources);
+        window.addEventListener("touch", loadResources);
+        window.addEventListener("scroll", loadResources);
+        window.addEventListener("click", loadResources);
+        
         
     </script>
+
 </body>
 </html>
